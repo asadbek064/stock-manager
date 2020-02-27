@@ -1,3 +1,3 @@
 <?php 
-   header('Location: php/welcome.php');
+   header('Location: app/welcome.php');
 ?>

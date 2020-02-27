@@ -21,7 +21,7 @@
 
         if($count > 0){
          	$_SESSION['login_user'] = $myusername;
-            header("Location: http://localhost/stock-manager/php/user_dashboard.php");
+            header("Location: user_dashboard.php");
 			 
         }else{
             echo "Invalid username and password";

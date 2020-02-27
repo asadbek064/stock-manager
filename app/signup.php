@@ -38,6 +38,8 @@
          $salt = 'CSC350'; 
          $pwd = sha1($pwd.$salt);
           */
+
+          $hash= password_hash($pwd, PASSWORD_DEFAULT);
          // create query 
          $sql = "INSERT INTO users (username, firstName, lastName, email, pwd) VALUES 
          ('$userName', '$firstName', '$lastName', '$email', '$pwd')";
@@ -48,15 +50,16 @@
           echo "New record created successfully";
         
           // After sign up is completed redirect to user_login.php 
-          header("Location: http://localhost/stock-manager/php/user_login.php");
+          header("Location: user_login.php");
           exit;
         
         } else {
-          echo "Error: " . $sql . "<br>" . $conn->error;
-        }
+          $msg= "Error: " . $sql . "<br>" . $conn->error;
+          echo  $msg; //"Error: " . $sql . "<br>" . $conn->error;
+        
 
         }
-  
+      }
 
         // SINGUP HTML
 ?>
