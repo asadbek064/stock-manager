@@ -1,3 +1,3 @@
 <?php 
-    include "login.html";
+   header('Location: login.html');
 ?>
