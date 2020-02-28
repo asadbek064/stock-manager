@@ -11,17 +11,17 @@
 	$mypassword = sha1($mypassword.$salt);
 	*/
 
+
     if ($myusername != "" && $mypassword != ""){
-		
         $sql_query = "SELECT count(*) as cntUser from users WHERE username='".$myusername."' and pwd='".$mypassword."'";
-        $result = mysqli_query($con,$sql_query);
+		$result = mysqli_query($con,$sql_query);
         $row = mysqli_fetch_array($result);
 
         $count = $row['cntUser'];
 
         if($count > 0){
-         	$_SESSION['login_user'] = $myusername;
-            header("Location: user_dashboard.php");
+				$_SESSION['login_user'] = $myusername;
+				header("Location: user_dashboard.php");
 			 
         }else{
             echo "Invalid username and password";
@@ -29,6 +29,7 @@
 
 	}
 }
+
 
 
 ?>

@@ -42,7 +42,7 @@
           $hash= password_hash($pwd, PASSWORD_DEFAULT);
          // create query 
          $sql = "INSERT INTO users (username, firstName, lastName, email, pwd) VALUES 
-         ('$userName', '$firstName', '$lastName', '$email', '$pwd')";
+         ('$userName', '$firstName', '$lastName', '$email', '$hash')";
 
 
          //connect and run the query 
