@@ -82,13 +82,13 @@
 <nav class="navbar navbar-default">
 	<div class="container-fluid">
 	  <div class="navbar-header">
-		<a class="navbar-brand" href="#" id="navbar-brand">
+		<a class="navbar-brand" href="welcome.php" id="navbar-brand">
 		  <p style="color: white;">Stock Manager</p>
 		</a>
 	  </div>
 	</div>
 </nav>
-    <div class="bg-contact3"">
+    <div class="bg-contact3">
 		<div class="container-contact3">
 			<div class="wrap-contact3">
 				<form class="contact3-form validate-form"  action=""  method="POST" name="signUpForm"  onsubmit="return validateForm()" >
@@ -140,18 +140,22 @@
 	  var a = document.forms["signUpForm"]["username"].value;
 	  var b = document.forms["signUpForm"]["lastName"].value;
 	  var c = document.forms["signUpForm"]["email"].value;
-	  var d = document.forms["signUpForm"]["password"].value;
-	  // a == null || a ==""
-	 
-
+    var d = document.forms["signUpForm"]["password"].value;
+    var e = document.forms["signUpForm"]["firstName"].value;
+    
+    if (a == null || a == "", b == null || b == "", c == null || c == "", d == null|| d == "") {
+		alert("Please Fill All Required Field");
+		return false;
+	  }
 	}
 
 	document.getElementsByClassName('navbar-brand')[0]
         .addEventListener('click', function (event) {
-			location.replace("http://localhost/stock-manager/php/welcome.php");
-        });
-  </script>
+			location.replace("http://localhost/stock-manager/php/welcome.php"
+	 
 
+	});
+  </script>
 
 </body>
 </html>

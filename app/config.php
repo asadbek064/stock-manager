@@ -1,13 +1,12 @@
 <?php
-   define('DB_SERVER',   'localhost');
-   define('DB_USERNAME', 'stock');
-   define('DB_PASSWORD', 'stock');
-   define('DB_DATABASE', 'stock_manager');
-  
+session_start();  
+ $host = "localhost";  
+ $username = "stock";  
+ $password = "stock";  
+ $database = "stock_manager";  
+ $message = "";
 
-   $con = mysqli_connect(DB_SERVER,DB_USERNAME,DB_PASSWORD,DB_DATABASE);
-// Check connection
-if (!$con) {
- die("Connection failed: " . mysqli_connect_error());
-}
+ $connect = new PDO("mysql:host=$host; dbname=$database", $username, $password);  
+ $connect->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+
 ?>

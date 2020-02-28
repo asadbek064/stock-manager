@@ -2,7 +2,7 @@
 	include ('session.php');
 
     if (!(isset($_SESSION['login_user']))) {
-        header("Location: http://localhost/stock-manager/php/user_login.php");
+        header("Location: user_login.php");
     }
 ?>
 
@@ -28,7 +28,7 @@
 		<a class="navbar-brand" href="#">
 			<p style="color: white;">Stock Manager</p>
         </a>
-        <a class="navbar-brand" href="#" id="logout">
+        <a class="navbar-brand" href="logout.php" id="logout">
             <p style="color:white;" >Log Out</p>    
         </a>
 	  </div>
