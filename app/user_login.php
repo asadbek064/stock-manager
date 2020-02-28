@@ -9,11 +9,11 @@
       {  
            if(empty($_POST["username"]) || empty($_POST["password"]))  
            {  
-                $message = '<label>All fields are required</label>';  
+                $message = 'All fields are required';  
            }  
            else  
            {  
-                $query = "SELECT * FROM users WHERE username = ?";// AND pwd = :password";  
+                $query = "SELECT * FROM users WHERE username = ?";  
                 $statement = $connect->prepare($query); 
                 $statement->execute([$_POST['username']]);
                 $user = $statement->fetch();
@@ -30,8 +30,7 @@
         }   else {
             $message = 'Invalid username and password';  
       }  
- }
-catch(PDOException $error) {  
+ } catch(PDOException $error) {  
       $message = $error->getMessage();  
  }
 
