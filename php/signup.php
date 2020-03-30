@@ -76,16 +76,13 @@
 
 <body>	
 <!-- navbar -->
-<nav class="navbar navbar-default">
-        <div class="container-fluid">
-            <div class="navbar-header">
-                <a class="navbar-brand" href="#">
-                    <p style="color: white;">SAHQ</p>
-                </a>
-                
-            </div>
-        </div>
-    </nav>
+<div class="container">
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+            <a class="navbar-brand" href="#">SAHQ</a>
+            <a class="navbar-brand ml-auto" href="#"></a>
+            <a class="navbar-brand ml-auto" href="#">ABOUT</a>
+        </nav>
+</div>
     
     <div class="bg-contact3"">
 		<div class="container-contact3">
