@@ -2,14 +2,10 @@
 include('session.php');
 
 if (!(isset($_SESSION['login_user']))) {
-    header("Location: http://localhost/stock-manager/php/user_login.php");
+    header("Location: user_login.php");
 }
 
-
-// searchbar 
-
-$string = file_get_contents("../assest/stocks.json");
-$myArray = json_decode($string);
+echo ($user_check);
 
 ?>
 
@@ -34,56 +30,69 @@ $myArray = json_decode($string);
 
 <body onload="getTIME()">
     <!-- navbar -->
-    <nav class="navbar navbar-default">
-        <div class="container-fluid">
-            <div class="navbar-header">
-                <a class="navbar-brand" href="#">
-                    <p style="color: white;">Stock Manager</p>
-                </a>
-                <a class="navbar-brand" href="#" id="logout">
-                    <p style="color:white;">Log Out</p>
-                </a>
+    <div class="container">
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+            <a class="navbar-brand" href="#">SAHQ</a>
+            <a class="navbar-brand ml-auto" href="#"><?php print "$user_check" ?></a>
+            <a class="navbar-brand ml-auto" href="logout.php">LOG OUT</a>
+        </nav>
+    </div>
+    <br><br>
+    <div>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6" style="width: 697px;">
+                    <div style="width: 740px;">
+                        <ul class="list-group" style="width: 548px;">
+                            <li class="list-group-item list-group-item-dark">Live Stock Reminders</li>
+                            <li class="list-group-item">Item 1</li>
+                            <li class="list-group-item">Item 2</li>
+                            <li class="list-group-item">Item 3</li>
+                            <li class="list-group-item">Item 4</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-md-6" style="width: 490px;"></div>
             </div>
-        </div>
-    </nav>
-
-
-    <div class="parent">
-        <div class="list_alert">
-            <ul class="list-group">
-                
-            </ul>
-        </div>
-
-        <div class="timeDiv">
-            <div class="clock">
-                <div id="time"></div>
-                <div id="dateFull"></div>
-            </div>
-        </div>
-
-        <div class="stock_search">
-            <br><br>
-            <div class="container" style="width:900px;">
-            
-                    <input type="text" name="search" id="search" placeholder="Search Employee Details" class="form-control" />
-               
-                <ul style="width:300px;" class="list-group" id="result">
-                <li >test</li>
-                    <
-                      
-            </ul>
-            
-            </div>
-
-        </div>
-
-        <div class="div4">
-
         </div>
     </div>
-
-
+    <br><br>
+    <div>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="input-group">
+                        <input type="text" style="width: 300px;" class="input-group" placeholder="Search Stock">
+                        <div class="input-group-append"> 
+                            <button class="btn btn-secondary" type="button" style="background: #007bff">
+                                <i class="fa fa-search"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <br>
+                    <div style="width: 557px;">
+                        <ul class="list-group">
+                            <li class="list-group-item">RESUTL 1</li>
+                            <li class="list-group-item">RESULT 2</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <br>
+    <div>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12"><select>
+                        <optgroup label="Select when to be alerted">
+                            <option value="1" selected="">IF STOCK HITS HIGER THAN</option>
+                            <option value="2">IF STOCK HITS LESS THAN</option>
+                        </optgroup>
+                    </select><input type="number"><button class="btn btn-primary" type="button">ADD</button></div>
+            </div>
+        </div>
+    </div>
 
 </body>
 <script>
