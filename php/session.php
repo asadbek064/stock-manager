@@ -10,7 +10,7 @@
    $login_session = $row['username'];
    
    if(!isset($_SESSION['login_user'])){
-      header("location:login.php");
+      header("Location: user_login.php");
       die();
    }
 ?>

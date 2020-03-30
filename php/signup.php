@@ -77,14 +77,16 @@
 <body>	
 <!-- navbar -->
 <nav class="navbar navbar-default">
-	<div class="container-fluid">
-	  <div class="navbar-header">
-		<a class="navbar-brand" href="#" id="navbar-brand">
-		  <p style="color: white;">Stock Manager</p>
-		</a>
-	  </div>
-	</div>
-</nav>
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <a class="navbar-brand" href="#">
+                    <p style="color: white;">SAHQ</p>
+                </a>
+                
+            </div>
+        </div>
+    </nav>
+    
     <div class="bg-contact3"">
 		<div class="container-contact3">
 			<div class="wrap-contact3">
