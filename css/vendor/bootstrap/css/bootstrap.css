@@ -288,6 +288,7 @@ textarea {
   font-family: inherit;
   font-size: inherit;
   line-height: inherit;
+  
 }
 
 button,
@@ -321,10 +322,13 @@ input[type="checkbox"] {
   padding: 0;
 }
 
+
 input[type="date"],
 input[type="time"],
 input[type="datetime-local"],
-input[type="month"] {
+input[type="month"] 
+{
+  
   -webkit-appearance: listbox;
 }
 
@@ -8183,3 +8187,14 @@ a.text-dark:focus, a.text-dark:hover {
   visibility: hidden !important;
 }
 /*# sourceMappingURL=bootstrap.css.map */
+
+
+
+
+input[type=number]::-webkit-inner-spin-button, 
+input[type=number]::-webkit-outer-spin-button { 
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    margin: 0; 
+}

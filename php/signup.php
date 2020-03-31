@@ -38,11 +38,9 @@
          $salt = 'CSC350'; 
          $pwd = sha1($pwd.$salt);
           */
-
-          $hash= password_hash($pwd, PASSWORD_DEFAULT);
          // create query 
          $sql = "INSERT INTO users (username, firstName, lastName, email, pwd) VALUES 
-         ('$userName', '$firstName', '$lastName', '$email', '$hash')";
+         ('$userName', '$firstName', '$lastName', '$email', '$pwd')";
 
 
          //connect and run the query 
@@ -50,16 +48,15 @@
           echo "New record created successfully";
         
           // After sign up is completed redirect to user_login.php 
-          header("Location: user_login.php");
+          header("Location: http://localhost/stock-manager/php/user_login.php");
           exit;
         
         } else {
-          $msg= "Error: " . $sql . "<br>" . $conn->error;
-          echo  $msg; //"Error: " . $sql . "<br>" . $conn->error;
-        
+          echo "Error: " . $sql . "<br>" . $conn->error;
+        }
 
         }
-      }
+  
 
         // SINGUP HTML
 ?>
@@ -79,16 +76,15 @@
 
 <body>	
 <!-- navbar -->
-<nav class="navbar navbar-default">
-	<div class="container-fluid">
-	  <div class="navbar-header">
-		<a class="navbar-brand" href="welcome.php" id="navbar-brand">
-		  <p style="color: white;">Stock Manager</p>
-		</a>
-	  </div>
-	</div>
-</nav>
-    <div class="bg-contact3">
+<div class="container">
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+            <a class="navbar-brand" href="#">SAHQ</a>
+            <a class="navbar-brand ml-auto" href="#"></a>
+            <a class="navbar-brand ml-auto" href="#">ABOUT</a>
+        </nav>
+</div>
+    
+    <div class="bg-contact3"">
 		<div class="container-contact3">
 			<div class="wrap-contact3">
 				<form class="contact3-form validate-form"  action=""  method="POST" name="signUpForm"  onsubmit="return validateForm()" >
@@ -140,22 +136,18 @@
 	  var a = document.forms["signUpForm"]["username"].value;
 	  var b = document.forms["signUpForm"]["lastName"].value;
 	  var c = document.forms["signUpForm"]["email"].value;
-    var d = document.forms["signUpForm"]["password"].value;
-    var e = document.forms["signUpForm"]["firstName"].value;
-    
-    if (a == null || a == "", b == null || b == "", c == null || c == "", d == null|| d == "") {
-		alert("Please Fill All Required Field");
-		return false;
-	  }
+	  var d = document.forms["signUpForm"]["password"].value;
+	  // a == null || a ==""
+	 
+
 	}
 
 	document.getElementsByClassName('navbar-brand')[0]
         .addEventListener('click', function (event) {
-			location.replace("http://localhost/stock-manager/php/welcome.php"
-	 
-
-	});
+			location.replace("http://localhost/stock-manager/php/welcome.php");
+        });
   </script>
+
 
 </body>
 </html>

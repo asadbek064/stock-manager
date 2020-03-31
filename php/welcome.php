@@ -20,16 +20,6 @@
 	</head>
 
 <body>
-<!-- navbar -->
-<nav class="navbar navbar-default">
-	<div class="container-fluid">
-	  <div class="navbar-header">
-		<a class="navbar-brand" href="#">
-			<p style="color: white;">Stock Manager</p>
-		</a>
-	  </div>
-	</div>
-  </nav>
 
     <div class="bg-contact3">
 		<div class="container-contact3">
@@ -45,12 +35,12 @@
 <script>
 	document.getElementsByClassName('wrap-contact3')[0]
         .addEventListener('click', function (event) {
-			location.replace("user_login.php");
+			location.replace("http://localhost/stock-manager/php/user_login.php");
         });
 
         document.getElementsByClassName('navbar-brand')[0]
         .addEventListener('click', function (event) {
-			location.replace("welcome.php");
+			location.replace("http://localhost/stock-manager/php/welcome.php");
         });
 </script>
 </html>
