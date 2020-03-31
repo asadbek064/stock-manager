@@ -5,8 +5,60 @@ if (!(isset($_SESSION['login_user']))) {
     header("Location: user_login.php");
 }
 
-echo ($user_check);
+//get users data and populate list 
 
+// set up db var
+$servername = 'localhost';
+$username = "stock";
+$password = "stock";
+$dbname = "stock_manager";
+
+$searchbox = "";
+
+$currentResultDes ="";
+$currentResultSymbol ="";
+
+//create connection 
+$conn = new mysqli($servername, $username, $password, $dbname);
+
+if ($conn->connect_error) {
+    die("Connection faild: " . $conn->connect_error);
+} else {
+    echo "Connected successfully";
+}
+
+$sql = "";
+
+
+// check if search  submited
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    // get input text  
+    $searchbox = $_POST["searchbox"];
+    $searchbox = strval($searchbox);
+    $con = mysqli_connect($servername, $username, $password, $dbname);
+
+  //  $sql_query = "SELECT count(*) as cntUser from stock_list WHERE symbol='".$searchbox."'";
+    $sql2 = "SELECT symbol, description FROM stock_list WHERE symbol = '$searchbox'";
+    //$result = mysqli_query($con,$sql2);
+    $result = $con->query($sql2);
+    
+    if (!$result) {
+        trigger_error('Invalid query: ' . $con->error);
+    }else{
+        
+        if($result->num_rows >0){
+            $row = $result->fetch_assoc();
+            $currentResultDes = $row["description"];
+            $currentResultSymbol =$row["symbol"];
+        }
+       
+    }
+    
+   
+
+    
+
+}
 ?>
 
 <!DOCTYPE html>
@@ -57,29 +109,34 @@ echo ($user_check);
         </div>
     </div>
     <br><br>
-    <div>
-        <div class="container">
-            <div class="row">
-                <div class="col-md-12">
-                    <div class="input-group">
-                        <input type="text" style="width: 300px;" class="input-group" placeholder="Search Stock">
-                        <div class="input-group-append"> 
-                            <button class="btn btn-secondary" type="button" style="background: #007bff">
-                                <i class="fa fa-search"></i>
-                            </button>
+    <!-- search bar -->
+    <form class="contact3-form validate-form" action="" method="POST">
+        <div>
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="input-group">
+                            <input type="text" style="width: 300px;" class="input-group" name="searchbox" placeholder="Search Stock">
+                            <div class="input-group-append">
+                                <button class="btn btn-secondary" type="submit" style="background: #007bff">
+                                    <i class="fa fa-search"></i>
+                                </button>
+                            </div>
                         </div>
-                    </div>
-                    <br>
-                    <div style="width: 557px;">
-                        <ul class="list-group">
-                            <li class="list-group-item">RESUTL 1</li>
-                            <li class="list-group-item">RESULT 2</li>
-                        </ul>
+                        <br>
+                        <div style="width: 557px;">
+                            <ul class="list-group">
+                                <li class="list-group-item">
+                                <?php echo $currentResultDes.' '.$currentResultSymbol ?>
+                                </li>
+    
+                            </ul>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
+    </form>
     <br>
     <div>
         <div class="container">
