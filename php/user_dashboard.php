@@ -1,5 +1,6 @@
 <?php
 include('session.php');
+include('apikey.php');
 
 if (!(isset($_SESSION['login_user']))) {
     header("Location: user_login.php");
@@ -13,52 +14,59 @@ $username = "stock";
 $password = "stock";
 $dbname = "stock_manager";
 
-$searchbox = "";
+$selectedStock = "";
+$targetPrice = 0;
+$ifGTRtarget = False; 
+$ifLStarget = False;
 
 $currentResultDes ="";
 $currentResultSymbol ="";
+$currentResutlPrice ="";
 
-//create connection 
-$conn = new mysqli($servername, $username, $password, $dbname);
-
-if ($conn->connect_error) {
-    die("Connection faild: " . $conn->connect_error);
-} else {
-    echo "Connected successfully";
-}
-
-$sql = "";
+$stockNotFound = False;
 
 
-// check if search  submited
+
+// SEARCHBOX 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // get input text  
-    $searchbox = $_POST["searchbox"];
-    $searchbox = strval($searchbox);
+    $selectedStock = $_POST["searchbox"];
+    $selectedStock = strval($selectedStock);
     $con = mysqli_connect($servername, $username, $password, $dbname);
 
-  //  $sql_query = "SELECT count(*) as cntUser from stock_list WHERE symbol='".$searchbox."'";
-    $sql2 = "SELECT symbol, description FROM stock_list WHERE symbol = '$searchbox'";
-    //$result = mysqli_query($con,$sql2);
-    $result = $con->query($sql2);
-    
+
+    $sql = "SELECT symbol, description FROM stock_list WHERE symbol = '$selectedStock'";
+    $result = $con->query($sql);
+
     if (!$result) {
         trigger_error('Invalid query: ' . $con->error);
-    }else{
-        
-        if($result->num_rows >0){
+    } else {
+        if ($result->num_rows > 0) {
             $row = $result->fetch_assoc();
             $currentResultDes = $row["description"];
-            $currentResultSymbol =$row["symbol"];
+            $currentResultSymbol = $row["symbol"];
+
+            // get current stock result current price 
+            $url = 'https://finnhub.io/api/v1/quote?symbol=' . $currentResultSymbol . '&token=' . $apikey;
+            $xml = file_get_contents($url);
+            $xml = json_decode($xml, true);
+            $currentResutlPrice =  $xml['c'];
+            $currentResutlPrice = '$' . $currentResutlPrice;
+
+        } else {
+            $stockNotFound = True;
         }
-       
     }
-    
-   
-
-    
-
 }
+// create new aleart and add it to stock alert table with relational to user
+if(!empty($_POST["targetSearchbox"]) && !empty($selectedStock)) {
+    $targetPrice = $_POST["targetSearchbox"];
+    echo $targetPrice;
+}else {
+     
+}
+
+
 ?>
 
 <!DOCTYPE html>
@@ -116,7 +124,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 <div class="row">
                     <div class="col-md-12">
                         <div class="input-group">
-                            <input type="text" style="width: 300px;" class="input-group" name="searchbox" placeholder="Search Stock">
+                            <input type="text" style="width: 300px;"class="input-group" name="searchbox" placeholder="Search Stock" required>
                             <div class="input-group-append">
                                 <button class="btn btn-secondary" type="submit" style="background: #007bff">
                                     <i class="fa fa-search"></i>
@@ -127,7 +135,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                         <div style="width: 557px;">
                             <ul class="list-group">
                                 <li class="list-group-item">
-                                <?php echo $currentResultDes.' '.$currentResultSymbol ?>
+                                <?php 
+                                    if($stockNotFound == True){
+                                        echo "Sorry that Doesn't exist try again";
+                                    }else echo $currentResultDes.' '.$currentResultSymbol.'  '.$currentResutlPrice
+                                     
+                                ?>
                                 </li>
     
                             </ul>
@@ -138,15 +151,32 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         </div>
     </form>
     <br>
-    <div>
+
+    <form class="contact3-form validate-form" action="" method="POST" name ="addalert" onsubmit="return validateForm()">
+    <div class="form-group">
         <div class="container">
             <div class="row">
-                <div class="col-md-12"><select>
-                        <optgroup label="Select when to be alerted">
+                <div class="col-md-12">
+                    <select name="alertState"  class="required">
+                        <optgroup   label="Select when to be alerted">
                             <option value="1" selected="">IF STOCK HITS HIGER THAN</option>
                             <option value="2">IF STOCK HITS LESS THAN</option>
                         </optgroup>
-                    </select><input type="number"><button class="btn btn-primary" type="button">ADD</button></div>
+                    </select>
+                    <br><br>
+                    <div class="row">
+                        <div  class="col-md-4 col-md-offset-4">
+                            <div class="input-group">
+                                    <input type="text" class="form-control" name="targetSearchbox" placeholder="$Target Price"  required>
+                                    <div class="input-group-append">
+                                        <button class="btn btn-secondary" type="submit" style="background: #007bff">
+                                    ADD <i class="fa fa-plus"></i>
+                                        </button>
+                                    </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -197,8 +227,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         document.getElementById("dateFull").innerHTML = final;
     }
 </script>
-
 <script>
+
+
     function getStockName() {
         const request = require('request');
 

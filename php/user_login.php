@@ -2,10 +2,13 @@
    session_start();
    include ("config.php");
 
+   $errorLogin  = False;
+
    if($_SERVER["REQUEST_METHOD"] == "POST"){
 
     $myusername = mysqli_real_escape_string($con,$_POST['username']);
-	$mypassword = mysqli_real_escape_string($con,$_POST['password']);
+    $mypassword = mysqli_real_escape_string($con,$_POST['password']);
+    
 	/*
 	$salt = 'CSC350'; 
 	$mypassword = sha1($mypassword.$salt);
@@ -24,7 +27,7 @@
             header("Location: http://localhost/stock-manager/php/user_dashboard.php");
 			 
         }else{
-            echo "Invalid username and password";
+             $errorLogin = True;
         }
 
 	}
@@ -65,21 +68,26 @@
 		<div class="container-contact3">
 			<div class="wrap-contact3">
 
-				<form class="contact3-form validate-form" name="signUpForm" method="post" action=""  onsubmit="return validateForm()" >
+				<form class="contact3-form validate-form" name="signUpForm" method="post" action=""  >
 				
 					<div class="wrap-input3 validate-input" data-validate="username">
-						<input class="input3" type="text" name="username" placeholder="username">
+						<input class="input3" type="text" name="username" placeholder="username" required>
 						<span class="focus-input3"></span>
 					</div>
 
 					<div class="wrap-input3 validate-input" data-validate="password">
 						<input class="input3" type="password" name="password" placeholder="Password">
-						<span class="focus-input3"></span>
-					</div>
+                        <span class="focus-input3"></span>
+                    </div>
+                    <?php 
+                        if($errorLogin == True){
+                            echo "<small class ='text-danger' style='font-size: 18px'>Invalid username and password</small>";
+                        }else{}
+                     ?>
                     <div class ="row">
                         <div class = "col-sm">
 					        <div class="container-contact3-form-btn">
-					        	<input class="contact3-form-btn" type="submit" value="Log In" name="submit">	
+					        	<input class="contact3-form-btn" type="submit" value="Log In" name="submit" required>	
                             </div>
                         </div> 
                         <div class = "col-sm">
@@ -97,16 +105,7 @@
     
 <!-- input validation check-->
 <script type="text/javascript">
-	function validateForm() {
-	  var a = document.forms["signUpForm"]["username"].value;
-      var b = document.forms["signUpForm"]["password"].value;
-      
-	  if (a == null || a == "", b == null || b == "") {
-		alert("Please Fill All Required Field");
-		return false;
-	  }
-	}
-
+	
 	document.getElementsByClassName('navbar-brand')[0]
         .addEventListener('click', function (event) {
 			location.replace("http://localhost/stock-manager/php/welcome.php");
