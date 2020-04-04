@@ -1,11 +1,11 @@
 <?php
-   define('DB_SERVER',   'localhost');
-   define('DB_USERNAME', 'stock');
-   define('DB_PASSWORD', 'stock');
-   define('DB_DATABASE', 'stock_manager');
+  $servername = 'localhost';
+  $username = "stock";
+  $password = "stock";
+  $dbname = "stock_manager";
   
 
-   $con = mysqli_connect(DB_SERVER,DB_USERNAME,DB_PASSWORD,DB_DATABASE);
+   $con = mysqli_connect($servername, $username, $password, $dbname);
 // Check connection
 if (!$con) {
  die("Connection failed: " . mysqli_connect_error());

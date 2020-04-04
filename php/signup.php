@@ -1,22 +1,17 @@
 <?php 
-    $servername = 'localhost';
-    $username = "stock";
-    $password = "stock";
-    $dbname = "stock_manager";
-
+  include('config.php');
+    
     $userName = "";
     $firstName = "";
     $lastName = "";
     $email = "" ;
     $pwd = "";
 
-    //create connection 
-    $conn = new mysqli($servername, $username, $password, $dbname);
 
     // check connection 
 
-    if($conn->connect_error) {
-        die("Connection faild: " . $conn->connect_error);
+    if($con->connect_error) {
+        die("Connection faild: " . $con->connect_error);
     }else{
         //echo "Connected successfully";
     }
@@ -44,7 +39,7 @@
 
 
          //connect and run the query 
-         if ($conn->query($sql) === TRUE) {
+         if ($con->query($sql) === TRUE) {
           echo "New record created successfully";
         
           // After sign up is completed redirect to user_login.php 
@@ -52,7 +47,7 @@
           exit;
         
         } else {
-          echo "Error: " . $sql . "<br>" . $conn->error;
+          echo "Error: " . $sql . "<br>" . $con->error;
         }
 
         }
