@@ -16,11 +16,11 @@ if (isset($_POST['targetSearchbox'])) {
 	$currentStockPrice = $_POST['hiddenPrice'];
 
     if($targetOptionChoice == 1 ){
-        $ifGTRtarget = True;
-        $ifLStarget = False;
+        $ifGTRtarget = 1;
+        $ifLStarget = 0;
     }elseif($targetOptionChoice == 2 ){
-        $ifLStarget = True;
-        $ifGTRtarget = False;
+        $ifLStarget = 1;
+        $ifGTRtarget = 0;
     }
 
     // get current userID from DB using current session  
@@ -39,34 +39,34 @@ if (isset($_POST['targetSearchbox'])) {
 		$currentUserID = number_format($currentUserID);
         
         // INSERT NEW STOCK ALERT 
-        $sql = " INSERT INTO user_stock_alert (userID, stockName, targetPrice, ifGTRtarget, ifLStarget,isCompleted)
-        VALUES ('$currentUserID','$currentStockChoice', '$targetPrice', '$ifGTRtarget','$ifLStarget',FALSE)";
+        $sqlAddAlert = " INSERT INTO user_stock_alert(userID, stockName, targetPrice, ifGTRtarget, ifLStarget,isCompleted)
+		VALUES ('$currentUserID','$currentStockChoice', '$targetPrice', '$ifGTRtarget','$ifLStarget',FALSE)";
 
        //connect and run the query 
-       	if ($con->query($sql) === TRUE) {
+       	if ($con->query($sqlAddAlert) === TRUE) {
 			echo "New record created successfully";
 			$currentStockChoice = strval($currentStockChoice);
 			$currentStockPrice = floatval($currentStockPrice);
 			
 			// check if currentstockchoice exisist in stock table if not add to stock table 
-			$sqlSymbolCheck = "SELECT count(*) as cntSymbol FROM liveStocks WHERE symbol = '$currentStockChoice'";
-			$result = mysqli_query($con,$sqlSymbolCheck);
-			$row =mysqli_fetch_array($result);
+			$sqlSymbolCheck = "SELECT count(*) as cntSymbol FROM livestocks WHERE symbol = '$currentStockChoice'";
+			$resultCheck = mysqli_query($con,$sqlSymbolCheck) or die(mysqli_error($sqlSymbolCheck));
+			$row =mysqli_fetch_array($resultCheck);
 			$count = $row['cntSymbol'];
 
 			if($count > 0) {
 				echo "symbol already exists in live stock";
 			}else {
 				// symbol doesn't exists in liveStocks add symbol to liveStocks and its current price table 
-				$sqlAddSymbol = "INSERT INTO liveStocks(symbol,stockPrice) VALUES ('$currentStockChoice','$currentStockPrice')";
+				$sqlAddSymbol = "INSERT INTO livestocks(symbol,stockPrice) VALUES ('$currentStockChoice','$currentStockPrice')";
 				//con and run 
 				if($con->query($sqlAddSymbol) == TRUE){
-					echo "added new stock to liveStocks table";
+					echo "added new stock to livestocks table";
 				}
 			}
 		
       	} else {
-        	echo "Error: " . $sql . "<br>" . $con->error;
+        	echo "Error: " . $sqlAddAlert . "<br>" . $con->error;
       	}
 
       }
