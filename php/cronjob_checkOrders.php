@@ -1,0 +1,80 @@
+<?php
+   include('apikey.php');
+   include('config.php');
+
+    /* cron job script this script will check all the orders in user_stock_alert 
+    and check if there target price is true based on prices on stockPrices table*/
+
+    $sqlGetOrders = "SELECT order_id, userID, stockName,targetPrice, ifGTRtarget, ifLStarget FROM user_stock_alert";
+    $results = mysqli_query($con,$sqlGetOrders);
+
+    if(!$results){
+        echo "could not run query: ". $con->error;
+    }
+    else {
+        if(mysqli_num_rows($results) >= 1){
+            while($row = mysqli_fetch_array($results)){
+                $orderStockName = $row["stockName"];
+                $orderTargetPrice = $row["targetPrice"];
+                $orderIfGTRtarget = $row["ifGTRtarget"];
+                $orderIfLStarget = $row["ifLStarget"];
+                $orderID = $row["order_id"];
+
+                $orderComplet = False;
+
+                $liveStockPrice = getPriceFrom_liveStocks($orderStockName,$con);
+                    
+                if($orderIfGTRtarget){
+                    // check if target price is GTR target 
+                    if($orderTargetPrice >= $liveStockPrice){
+                        $orderComplet = True;
+                    }
+                }elseif($orderIfLStarget){
+                    if($orderTargetPrice <= $liveStockPrice){
+                        $orderComplet = True;
+                    }
+                }
+                
+                // if order is satisfied send user email and set isCompleted to True
+                if($orderComplet){
+                    orderCompleted($con,$orderID);
+                }
+            }
+        }
+    }
+
+    //function to get liveStocksPrice
+    function getPriceFrom_liveStocks($symbol,$con){
+        $sql = "SELECT symbol, stockPrice FROM livestocks";
+        $results =  mysqli_query($con,$sql);
+
+        if(!$results){
+            echo "could not run query: ". $con->error;
+        }else {
+            if(mysqli_num_rows($results) >=1){
+                while($row = mysqli_fetch_array($results)){
+                    $tableSymbol = $row["symbol"];
+                    
+                    if($symbol == $tableSymbol){
+                        $stockPrice = $row["stockPrice"];
+                        return $stockPrice;
+                    }
+                }
+            }
+        }
+
+    }
+
+    function orderCompleted($con, $orderID){
+        $true = True;
+        $orderID  = intval($orderID);
+        $sql = "UPDATE user_stock_alert SET isCompleted = 1 WHERE `order_id` = '$orderID' ";
+        
+        if($con->query($sql) == TRUE){
+            echo "stock isCompleted updated";
+        }
+        else{
+            echo "error: ". $con->error;
+        }
+    }
+?>

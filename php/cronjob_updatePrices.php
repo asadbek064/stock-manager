@@ -17,8 +17,9 @@
             while($row = mysqli_fetch_array($results)){
                 $currentSymbol = $row["symbol"];
                 $stockPrice = getPrice($currentSymbol,$apikey);
+                $stocPrice = floatval($stockPrice);
 
-                $sqlUpdatePrice = "UPDATE liveStocks SET stockPrice ='$stockPrice' WHERE symbol ='$currentSymbol' ";
+                $sqlUpdatePrice = "UPDATE liveStocks SET `stockPrice` ='$stockPrice' WHERE `symbol` ='$currentSymbol' ";
                 
                 if($con->query($sqlUpdatePrice) == TRUE){
 					echo "stock price update".$currentSymbol." ".$stockPrice."<br>";
