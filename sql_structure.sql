@@ -35,3 +35,9 @@ ALTER TABLE `user_stock_alert`
 ALTER TABLE `user_stock_alert`
   ADD CONSTRAINT `user_stock_alert_ibfk_1` FOREIGN KEY (`userID`) REFERENCES `users` (`userID`);
 COMMIT;
+
+--STOCK TABLE THIS TABLE WILL GET UPDATE every min by CRON job
+CREATE TABLE `liveStocks`(
+    `symbol` varchar(255) NOT NULL UNIQUE,
+    `stockPrice` FLOAT
+)ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;

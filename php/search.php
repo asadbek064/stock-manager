@@ -4,7 +4,7 @@ include('config.php');
 
 $currentResultDes ="";
 $currentResultSymbol ="";
-$currentResutlPrice ="";
+$currentResutlPrice;
 
 $stockNotFound = False;
 
@@ -31,7 +31,7 @@ if(isset($_POST['searchbox'])) {
             $xml = file_get_contents($url);
             $xml = json_decode($xml, true);
             $currentResutlPrice =  $xml['c'];
-            $currentResutlPrice = '$' . $currentResutlPrice;
+            $currentResutlPrice =  $currentResutlPrice;
 
         } else {
             $stockNotFound = True;

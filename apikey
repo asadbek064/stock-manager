@@ -1,5 +1,6 @@
 
 https://finnhub.io/dashboard
+60 free API calls/minute
 APIKEY: bpsmrs7rh5re0jhjnu70
 
 finhub.io/api/v1/quote?symobl=<stock symobl>&token=<apikey>

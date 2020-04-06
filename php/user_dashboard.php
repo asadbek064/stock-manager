@@ -84,7 +84,7 @@ if (!(isset($_SESSION['login_user']))) {
                                                 <div class='card-body'>
                                                     <h5 class ='card-title'>".$currentResultSymbol."</h5>
                                                     <p class='card-text'>$currentResultDes</p>
-                                                    <h7 class='card-text'>LIVE PRICE: $currentResutlPrice</h7>
+                                                    <h7 class='card-text'>LIVE PRICE: $$currentResutlPrice</h7>
                                                     <a href='#' class = 'card-link'>More</a>
                                                 </div>
                                              </div>"; 
@@ -115,7 +115,10 @@ if (!(isset($_SESSION['login_user']))) {
                     <div class="row">
                         <div  class="col-md-4 col-md-offset-4">
                             <div class="input-group">
-                                    <!-- hidden input to save data from first form--><input type="hidden" name="hiddenInput" value="<?php echo $currentResultSymbol ?>"/>
+                                    <!-- hidden input to save data from first form-->
+                                    <input type="hidden" name="hiddenChoice" value="<?php echo $currentResultSymbol ?>"/>
+                                    <input type="hidden" name="hiddenPrice" value="<?php echo $currentResutlPrice ?>"/>
+
                                     <input type="text" class="form-control" name="targetSearchbox" placeholder="$Target Price"  required>
                                     <div class="input-group-append">
                                         <button class="btn btn-secondary" type="add" style="background: #007bff" onclick="saveSearchResult()">
