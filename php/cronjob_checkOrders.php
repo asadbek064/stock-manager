@@ -14,12 +14,14 @@
     else {
         if(mysqli_num_rows($results) >= 1){
             while($row = mysqli_fetch_array($results)){
-                $orderStockName = $row["stockName"];
-                $orderTargetPrice = $row["targetPrice"];
-                $orderIfGTRtarget = $row["ifGTRtarget"];
-                $orderIfLStarget = $row["ifLStarget"];
-                $orderID = $row["order_id"];
+                $orderID = $row['order_id'];
+                $order_userID = $row['userID'];
+                $orderStockName = $row['stockName'];
+                $orderTargetPrice = $row['targetPrice'];
+                $orderIfGTRtarget = $row['ifGTRtarget'];
+                $orderIfLStarget = $row['ifLStarget'];
 
+                echo $orderID.' '.$order_userID.' '.$orderStockName.' '.$orderTargetPrice.' '.$orderIfGTRtarget.' '.$orderIfLStarget. '<br>';
                 $orderComplet = False;
 
                 $liveStockPrice = getPriceFrom_liveStocks($orderStockName,$con);
@@ -37,11 +39,51 @@
                 
                 // if order is satisfied send user email and set isCompleted to True
                 if($orderComplet){
+                    //get users data 
+                    $sqlGetEmail = "SELECT userID, username, firstName, lastName, email FROM users";
+                    $results = mysqli_query($con,$sqlGetEmail);
+                    
+                    if(!$results) {
+                        echo "error: get user data ". $con->error;
+                    }else{
+                        if(mysqli_num_rows($results) > 0){
+                            while($row = mysqli_fetch_assoc($results)) {
+                                       
+                                $userID = $row["userID"];
+                                $userFirstName = $row["firstName"];
+                                $userLastName = $row["lastName"];
+                                $userEmail = $row["email"];
+                                echo $userID.' '.$userFirstName.' '. $userLastName.' '.$userEmail.'<br>';
+        
+                                if($userID == $order_userID){
+                                    //prep email and send it 
+                                    $from = "sahq064@gmail.com";
+                                    $subject = " SAQH alert notification";
+                                    $triggerType = "";
+                                    
+                                    if($orderIfGTRtarget){
+                                        $triggerType = "is greater than ";
+                                    }elseif($orderIfLStarget){
+                                        $triggerType = "is less than ";
+                                    }
+                                        
+                                    //send email 
+                                    sendEmailAlert($from, $userEmail, $subject, $userFirstName, $userLastName, $orderStockName, $orderTargetPrice, $triggerType);
+                                }
+                            
+                                    
+                                }   
+                        }
+                            
+ 
+                    
                     orderCompleted($con,$orderID);
                 }
             }
         }
     }
+}
+    
 
     //function to get liveStocksPrice
     function getPriceFrom_liveStocks($symbol,$con){
@@ -71,10 +113,27 @@
         $sql = "UPDATE user_stock_alert SET isCompleted = 1 WHERE `order_id` = '$orderID' ";
         
         if($con->query($sql) == TRUE){
-            echo "stock isCompleted updated";
+            echo " <br>stock isCompleted updated";
         }
         else{
             echo "error: ". $con->error;
         }
     }
-?>
+    
+    function sendEmailAlert($from, $to, $subject, $firstName, $lastName, $stockSymbol, $targetPrice, $triggerType){
+        $message = " <h1> Alert $firstName ' '$lastName</h2>";
+        $message .= "<h2> Your Stock $stockSymbol is $triggerType $targetPrice </h2>";
+    
+        $header = "From:".$from."\r\n";
+        $header .= "Cc:".$to."\r\n";
+        $header .= "MIME-Version: 1.0\r\n";
+        $header .= "Content-type: text/html\r\n";
+
+        $retval = mail($to,$subject,$message,$header);
+
+        if( $retval == true) { 
+            echo "message sent successfully...";
+        }else {`
+            echo "message could not be sent...";
+        }
+    }

@@ -47,6 +47,7 @@ if (isset($_POST['targetSearchbox'])) {
 			echo "New record created successfully";
 			$currentStockChoice = strval($currentStockChoice);
 			$currentStockPrice = floatval($currentStockPrice);
+			
 			// check if currentstockchoice exisist in stock table if not add to stock table 
 			$sqlSymbolCheck = "SELECT count(*) as cntSymbol FROM liveStocks WHERE symbol = '$currentStockChoice'";
 			$result = mysqli_query($con,$sqlSymbolCheck);

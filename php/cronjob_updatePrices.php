@@ -19,6 +19,7 @@
                 $stockPrice = getPrice($currentSymbol,$apikey);
                 $stocPrice = floatval($stockPrice);
 
+
                 $sqlUpdatePrice = "UPDATE liveStocks SET `stockPrice` ='$stockPrice' WHERE `symbol` ='$currentSymbol' ";
                 
                 if($con->query($sqlUpdatePrice) == TRUE){
