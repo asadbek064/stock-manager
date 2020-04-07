@@ -1,6 +1,6 @@
 <?php
    include('config.php');
-   
+
    $user_check = $_SESSION['login_user'];
    
    $ses_sql = mysqli_query($con,"select username from users where username = '$user_check' ");
@@ -13,3 +13,5 @@
       die();
    }
 ?>
+
+

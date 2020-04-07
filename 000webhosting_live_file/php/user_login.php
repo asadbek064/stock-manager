@@ -1,9 +1,8 @@
 <?php
-   session_start();
    include ("config.php");
-
    $errorLogin  = False;
 
+   session_start();
    if($_SERVER["REQUEST_METHOD"] == "POST"){
 
     $myusername = mysqli_real_escape_string($con,$_POST['username']);
