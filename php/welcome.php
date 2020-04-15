@@ -35,12 +35,12 @@
 <script>
 	document.getElementsByClassName('wrap-contact3')[0]
         .addEventListener('click', function (event) {
-			location.replace("http://localhost/stock-manager/php/user_login.php");
+			location.replace("./user_login.php");
         });
 
         document.getElementsByClassName('navbar-brand')[0]
         .addEventListener('click', function (event) {
-			location.replace("http://localhost/stock-manager/php/welcome.php");
+			location.replace("./welcome.php");
         });
 </script>
 </html>

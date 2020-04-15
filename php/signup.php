@@ -43,7 +43,7 @@
           echo "New record created successfully";
         
           // After sign up is completed redirect to user_login.php 
-          header("Location: http://localhost/stock-manager/php/user_login.php");
+          header("Location: user_login.php");
           exit;
         
         } else {
