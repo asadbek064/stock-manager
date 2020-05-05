@@ -1,36 +1,52 @@
 <?php
-   session_start();
    include ("config.php");
-
    $errorLogin  = False;
 
+   session_start();
    if($_SERVER["REQUEST_METHOD"] == "POST"){
 
     $myusername = mysqli_real_escape_string($con,$_POST['username']);
     $mypassword = mysqli_real_escape_string($con,$_POST['password']);
-    
-	/*
-	$salt = 'CSC350'; 
-	$mypassword = sha1($mypassword.$salt);
-	*/
 
+    
+    $query = "SELECT * FROM users WHERE username = '$myusername'";
+    $result = mysqli_query($con, $query);
+
+    if(mysqli_num_rows($result) > 0)  
+           {  
+                while($row = mysqli_fetch_array($result))  
+                {  
+                     if(password_verify($mypassword, $row["pwd"]))  
+                     {  
+                        $_SESSION['login_user'] = $myusername;
+                        header("Location: http://localhost/stock-manager/php/user_dashboard.php");
+                     }  
+                     else  
+                     {  
+                        $errorLogin = True; 
+                     }  
+                }  
+           } 
+
+    /*
     if ($myusername != "" && $mypassword != ""){
-		
-        $sql_query = "SELECT count(*) as cntUser from users WHERE username='".$myusername."' and pwd='".$mypassword."'";
+
+        //$sql_query = "SELECT count(*) as cntUser from users WHERE username='".$myusername."' ";
+        $sql_query = "SELECT username, pwd FROM users WHERE username = '.$myusername.'";
         $result = mysqli_query($con,$sql_query);
         $row = mysqli_fetch_array($result);
 
-        $count = $row['cntUser'];
+        print($row['username']);
 
-        if($count > 0){
-         	$_SESSION['login_user'] = $myusername;
-            header("Location: http://localhost/stock-manager/php/user_dashboard.php");
-			 
-        }else{
-             $errorLogin = True;
+        if(password_verify($mypassword,$hash)){
+                $_SESSION['login_user'] = $myusername;
+               header("Location: http://localhost/stock-manager/php/user_dashboard.php");
+        }else {
+            $errorLogin = True;
         }
-
-	}
+       
+    }
+    */
 }
 
 

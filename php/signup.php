@@ -26,13 +26,9 @@
          $lastName = $_POST["lastName"];
          $email = $_POST["email"];
          $pwd = $_POST["password"];
-
-         // hash password
-         // test purpos not hashing
-         /*
-         $salt = 'CSC350'; 
-         $pwd = sha1($pwd.$salt);
-          */
+        
+         $pwd = password_hash($pwd,PASSWORD_DEFAULT);
+        
          // create query 
          $sql = "INSERT INTO users (username, firstName, lastName, email, pwd) VALUES 
          ('$userName', '$firstName', '$lastName', '$email', '$pwd')";

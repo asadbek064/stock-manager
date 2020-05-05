@@ -1,7 +1,10 @@
 <?php
+session_start();
+
 include('session.php');
 include('search.php');
 include('add_new_alert.php');
+include('update_user_dashboard.php');
 
 if (!(isset($_SESSION['login_user']))) {
     header("Location: user_login.php");
@@ -44,10 +47,7 @@ if (!(isset($_SESSION['login_user']))) {
                     <div style="width: 740px;">
                         <ul class="list-group" style="width: 548px;">
                             <li class="list-group-item list-group-item-dark">Live Stock Reminders</li>
-                            <li class="list-group-item">Item 1</li>
-                            <li class="list-group-item">Item 2</li>
-                            <li class="list-group-item">Item 3</li>
-                            <li class="list-group-item">Item 4</li>
+                            <?php  liveStockReminders(); ?>
                         </ul>
                     </div>
                 </div>
