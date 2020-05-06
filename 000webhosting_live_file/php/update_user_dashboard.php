@@ -58,7 +58,28 @@
                     $orderIsCompleted = $row['isCompleted'];
 
                     if($order_userID == $userID){
-                        array_push($userAlerts, "$orderStockName  $orderTargetPrice $orderIsCompleted");
+                        $ifGTR= "";
+                        $ifLS = "";
+                        
+                        $orderStatus = "Order: ";
+                        if($orderIsCompleted){
+                            $orderStatus .= " Done";
+                        }else { $orderStatus .= " notDone";}
+                    
+
+                        $orderTargetPrice = "<span style='color:#85bb65;font-size: large;'>$$orderTargetPrice</span>";
+                        $orderStockName =  "<span style='color:#1FE6B5;  font-weight: bold; font-size:large;'>$orderStockName</span>";
+                        $extra = " Remind me at: ";
+
+                        // get current price of stock 
+                        //function getStockPrice($con , $symbol) {
+                            if($orderIfGTRtarget){
+                                $ifGTR .= "if it's greated than: ";
+                                array_push($userAlerts, "$orderStockName $ifGTR $orderTargetPrice $orderStatus");
+                            }else if($orderIfLStarget){
+                                $ifLS .= "if it's less than: ";
+                                array_push($userAlerts, "$orderStockName $ifLS $orderTargetPrice $orderStatus");
+                            }
                     }
         }
         return $userAlerts;

@@ -26,13 +26,10 @@
          $lastName = $_POST["lastName"];
          $email = $_POST["email"];
          $pwd = $_POST["password"];
-
-         // hash password
-         // test purpos not hashing
-         /*
-         $salt = 'CSC350'; 
-         $pwd = sha1($pwd.$salt);
-          */
+         
+         // hashed the password before sending 
+         $pwd = password_hash($pwd,PASSWORD_DEFAULT);
+         
          // create query 
          $sql = "INSERT INTO users (username, firstName, lastName, email, pwd) VALUES 
          ('$userName', '$firstName', '$lastName', '$email', '$pwd')";
@@ -43,8 +40,7 @@
           echo "New record created successfully";
         
           // After sign up is completed redirect to user_login.php 
-          header("Location: https://sahq.000webhostapp.com/php/user_login.php");
-          exit;
+        header("Location: /php/user_login.php");
         
         } else {
           echo "Error: " . $sql . "<br>" . $con->error;
