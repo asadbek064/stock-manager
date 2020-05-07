@@ -1,4 +1,11 @@
-<?php 
+<?php
+## AUTHOR = "Alain & Asad"
+
+# LICENCE MIT
+
+# This is this is search componant
+
+
 include('apikey.php');
 include('config.php');
 

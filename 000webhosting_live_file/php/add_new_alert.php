@@ -1,4 +1,11 @@
 <?php 
+## AUTHOR = "Asad"
+# Reviewer= "Alain"
+# LICENCE MIT
+
+# This is the an internal componant which is part of
+# user alert notification
+
 include('search.php');
 include('config.php');
 

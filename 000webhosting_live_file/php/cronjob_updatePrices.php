@@ -1,4 +1,11 @@
 <?php
+## AUTHOR = "Asad"
+# Reviewer= "Alain"
+
+# LICENCE MIT
+
+# This is part of the cron componant
+
     include('apikey.php');
     include('config.php');
     include('cronjob_checkOrders.php');

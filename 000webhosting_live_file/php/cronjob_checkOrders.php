@@ -121,7 +121,7 @@
                 echo "error: ". $con->error;
             }
         }
-        
+        // sent alert email to the user
         function sendEmailAlert($from, $to, $subject, $firstName, $lastName, $stockSymbol, $targetPrice, $triggerType){
             $message = " <h1> Alert $firstName ' '$lastName</h2>";
             $message .= "<h2> Your Stock $stockSymbol is $triggerType $targetPrice </h2>";

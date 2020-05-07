@@ -1,8 +1,13 @@
 <?php
+## AUTHOR = "Asad & Asad"
+# LICENCE MIT
+
+# This is the config file
+# I have redicted the sensitive data.
   $servername = 'localhost';
-  $username = 'id12800622_sahq064';
-  $password = '>A)ho]m4>N>GkO+e';
-  $dbname = 'id12800622_stockmanager';
+  $username = 'REDACTED';
+  $password = 'REDACTED';
+  $dbname = 'REDACTED';
   
 
    $con = mysqli_connect($servername, $username, $password, $dbname);

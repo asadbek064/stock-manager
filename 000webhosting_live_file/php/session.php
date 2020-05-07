@@ -1,4 +1,13 @@
 <?php
+
+## AUTHOR = "Asad"
+# Reviewer= "Alain"
+
+# LICENCE MIT
+
+# This is the session component
+# enforce security
+
 include('config.php');
 
    $user_check = $_SESSION['login_user'];

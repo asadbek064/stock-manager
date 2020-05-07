@@ -1,4 +1,11 @@
 <?php
+## AUTHOR = "Asad & Alain"
+
+# LICENCE MIT
+
+# This is the logout page
+
+
    include('session.php');
    
    // Initialize the session.

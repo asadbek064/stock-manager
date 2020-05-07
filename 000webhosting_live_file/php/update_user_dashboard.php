@@ -1,4 +1,12 @@
 <?php 
+## AUTHOR = "Asad"
+# Reviewer= "Alain"
+# LICENCE MIT
+
+# This is the an internal componant
+# that update user's dashboard
+
+
     function liveStockReminders(){
         include('config.php');
         include('session.php');
@@ -45,6 +53,9 @@
             }
         }
 
+        # this function will get the info from the database
+        # compare the stock(s) price
+        # and retrun the value to be used for the alert email
         function getUserArray($results, $userID){
             $userAlerts = [];
             if(mysqli_num_rows($results) >= 1){

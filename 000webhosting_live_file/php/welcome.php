@@ -1,4 +1,11 @@
 <?php 
+## AUTHOR = "Alain & Asad"
+
+# LICENCE MIT
+
+# This is welme page that has the user login landing
+# page. Designed this was for some better styling
+
     include ("config.php");
     session_start();
 ?>

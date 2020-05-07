@@ -4,6 +4,10 @@
 
 # LICENCE MIT
 
+# run this scrip to prepare for the database schema.
+# you will need pass in the username and password
+# you mysql user access
+
 mysql -u $1 -p$2 <<SETUP_SCHEMA
 use stock_manager;
 CREATE TABLE users(

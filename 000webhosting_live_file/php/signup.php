@@ -1,4 +1,10 @@
-<?php 
+<?php
+## AUTHOR = "Alain & Asad"
+
+# LICENCE MIT
+
+# This is the sign up page
+
   include('config.php');
     
     $userName = "";

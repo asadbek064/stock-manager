@@ -1,4 +1,11 @@
 <?php
+## AUTHOR = "Asad"
+
+# LICENCE MIT
+
+# TThis is the dashboard page
+
+
 session_start();
 
 include('session.php');
