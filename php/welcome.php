@@ -1,4 +1,11 @@
 <?php 
+## AUTHOR = "Alain & Asad"
+
+# LICENCE MIT
+
+# This is welme page that has the user login landing
+# page. Designed this was for some better styling
+
     include ("config.php");
     session_start();
 ?>
@@ -35,7 +42,7 @@
 <script>
 	document.getElementsByClassName('wrap-contact3')[0]
         .addEventListener('click', function (event) {
-			location.replace("http://localhost/stock-manager/php/user_login.php");
+			location.replace("http://sahq.000webhostapp.com/php/user_login.php");
         });
 
         document.getElementsByClassName('navbar-brand')[0]

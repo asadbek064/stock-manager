@@ -1,10 +1,11 @@
 <?php
-   include('apikey.php');
-   include('config.php');
 
-    /* cron job script this script will check all the orders in user_stock_alert 
-    and check if there target price is true based on prices on stockPrices table*/
-        
+   function start_cronjob_checkOrder(){
+        include('apikey.php');
+        include('config.php');
+        /* cron job script this script will check all the orders in user_stock_alert 
+        and check if there target price is true based on prices on stockPrices table*/
+
         $sqlGetOrders = "SELECT order_id, userID, stockName,targetPrice, ifGTRtarget, ifLStarget, isCompleted FROM user_stock_alert";
         $results = mysqli_query($con,$sqlGetOrders);
 
@@ -120,7 +121,7 @@
                 echo "error: ". $con->error;
             }
         }
-        
+        // sent alert email to the user
         function sendEmailAlert($from, $to, $subject, $firstName, $lastName, $stockSymbol, $targetPrice, $triggerType){
             $message = " <h1> Alert $firstName ' '$lastName</h2>";
             $message .= "<h2> Your Stock $stockSymbol is $triggerType $targetPrice </h2>";
@@ -138,3 +139,4 @@
                 echo "message could not be sent...";
             }
         }
+   }

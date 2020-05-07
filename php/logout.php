@@ -1,6 +1,13 @@
 <?php
-   include ('session.php');
+## AUTHOR = "Asad & Alain"
 
+# LICENCE MIT
+
+# This is the logout page
+
+
+   include('session.php');
+   
    // Initialize the session.
    session_start();
    // Unset all of the session variables.

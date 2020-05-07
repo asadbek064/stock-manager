@@ -1,4 +1,10 @@
-<?php 
+<?php
+## AUTHOR = "Alain & Asad"
+
+# LICENCE MIT
+
+# This is the sign up page
+
   include('config.php');
     
     $userName = "";
@@ -26,9 +32,10 @@
          $lastName = $_POST["lastName"];
          $email = $_POST["email"];
          $pwd = $_POST["password"];
-        
+         
+         // hashed the password before sending 
          $pwd = password_hash($pwd,PASSWORD_DEFAULT);
-        
+         
          // create query 
          $sql = "INSERT INTO users (username, firstName, lastName, email, pwd) VALUES 
          ('$userName', '$firstName', '$lastName', '$email', '$pwd')";
@@ -39,8 +46,7 @@
           echo "New record created successfully";
         
           // After sign up is completed redirect to user_login.php 
-          header("Location: http://localhost/stock-manager/php/user_login.php");
-          exit;
+        header("Location: /php/user_login.php");
         
         } else {
           echo "Error: " . $sql . "<br>" . $con->error;
@@ -135,7 +141,7 @@
 
 	document.getElementsByClassName('navbar-brand')[0]
         .addEventListener('click', function (event) {
-			location.replace("http://localhost/stock-manager/php/welcome.php");
+			location.replace("https://sahq.000webhostapp.com/php/welcome.php");
         });
   </script>
 

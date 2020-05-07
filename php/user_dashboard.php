@@ -1,4 +1,11 @@
 <?php
+## AUTHOR = "Asad"
+
+# LICENCE MIT
+
+# TThis is the dashboard page
+
+
 session_start();
 
 include('session.php');
@@ -121,7 +128,7 @@ if (!(isset($_SESSION['login_user']))) {
 
                                     <input type="text" class="form-control" name="targetSearchbox" placeholder="$Target Price"  required>
                                     <div class="input-group-append">
-                                        <button class="btn btn-secondary" type="add" style="background: #007bff" onclick="saveSearchResult()">
+                                        <button class="btn btn-secondary" type="add" style="background: #007bff" onclick="setTimeout()">
                                     ADD <i class="fa fa-plus"></i>
                                         </button>
                                     </div>
@@ -144,7 +151,7 @@ if (!(isset($_SESSION['login_user']))) {
         hours = hours % 12;
         hours = hours ? hours : 12; // the hour '0' should be '12'
         minutes = minutes < 10 ? '0' + minutes : minutes;
-        var strTime = hours + ':' + minutes + ' ' + ampm;
+        var strTime = '_ '+hours + ':' + minutes + ' ' + ampm;
         document.getElementById("time").innerHTML = strTime;
 
         (function() {
@@ -164,10 +171,17 @@ if (!(isset($_SESSION['login_user']))) {
 
         var day = date.getDayName();
         var month = date.getMonthName();
-        var final = date.getDate() + ' ' + month + ' ' + day;
+        var final = + date.getDate() + ' ' + month + ' ' + day;
         document.getElementById("dateFull").innerHTML = final;
     }
 </script>
 
+<script> 
+    setTimeout(function(){
+  if ($('popup').length > 0) {
+    $('popup').remove();
+  }
+}, 2500);
+</script>
 
 </html>

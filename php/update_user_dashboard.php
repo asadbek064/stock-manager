@@ -1,4 +1,12 @@
 <?php 
+## AUTHOR = "Asad"
+# Reviewer= "Alain"
+# LICENCE MIT
+
+# This is the an internal componant
+# that update user's dashboard
+
+
     function liveStockReminders(){
         include('config.php');
         include('session.php');
@@ -29,7 +37,7 @@
                                     
                                             // this is the correct user 
                                             $usersAlerts = [];
-                                            $usersAlerts = getUserArray($resultsOrder, $userID, $con);
+                                            $usersAlerts = getUserArray($resultsOrder, $userID);
                                             $final = "";
                                             for($i = 0; $i <sizeof($usersAlerts); $i++){
                                                 $current = $usersAlerts[$i];
@@ -45,7 +53,10 @@
             }
         }
 
-        function getUserArray($results, $userID, $con){
+        # this function will get the info from the database
+        # compare the stock(s) price
+        # and retrun the value to be used for the alert email
+        function getUserArray($results, $userID){
             $userAlerts = [];
             if(mysqli_num_rows($results) >= 1){
                 while($row = mysqli_fetch_array($results)){
@@ -68,7 +79,7 @@
                     
 
                         $orderTargetPrice = "<span style='color:#85bb65;font-size: large;'>$$orderTargetPrice</span>";
-                        $orderStockName =  "<span style='color:#1FE6B5; font-size:large;'>$orderStockName</span>";
+                        $orderStockName =  "<span style='color:#1FE6B5;  font-weight: bold; font-size:large;'>$orderStockName</span>";
                         $extra = " Remind me at: ";
 
                         // get current price of stock 

@@ -1,54 +1,46 @@
 <?php
+## AUTHOR = "Alain & Asad"
+
+# LICENCE MIT
+
+# This is the loging page which provide the user to sign in or sign up
+
+
+
    include ("config.php");
    $errorLogin  = False;
 
    session_start();
    if($_SERVER["REQUEST_METHOD"] == "POST"){
 
+    # initialize variable to make sire no bad input was provided
+    # if the user pass in the wrong password it will throw an error
+
     $myusername = mysqli_real_escape_string($con,$_POST['username']);
     $mypassword = mysqli_real_escape_string($con,$_POST['password']);
-
     
-    $query = "SELECT * FROM users WHERE username = '$myusername'";
+	$query = "SELECT * FROM users WHERE username = '$myusername'";
     $result = mysqli_query($con, $query);
 
     if(mysqli_num_rows($result) > 0)  
            {  
                 while($row = mysqli_fetch_array($result))  
                 {  
-                     if(password_verify($mypassword, $row["pwd"]))  
+                    # since passeword are hashed, we use the built in
+                    # function that verify the hash from user input plaintext value
+                    # and if successful, it redirect to the dashbord 
+                    if(password_verify($mypassword, $row["pwd"]))
                      {  
                         $_SESSION['login_user'] = $myusername;
-                        header("Location: http://localhost/stock-manager/php/user_dashboard.php");
+                         header("Location: https://sahq.000webhostapp.com/php/user_dashboard.php");
                      }  
                      else  
                      {  
                         $errorLogin = True; 
                      }  
                 }  
-           } 
-
-    /*
-    if ($myusername != "" && $mypassword != ""){
-
-        //$sql_query = "SELECT count(*) as cntUser from users WHERE username='".$myusername."' ";
-        $sql_query = "SELECT username, pwd FROM users WHERE username = '.$myusername.'";
-        $result = mysqli_query($con,$sql_query);
-        $row = mysqli_fetch_array($result);
-
-        print($row['username']);
-
-        if(password_verify($mypassword,$hash)){
-                $_SESSION['login_user'] = $myusername;
-               header("Location: http://localhost/stock-manager/php/user_dashboard.php");
-        }else {
-            $errorLogin = True;
-        }
-       
-    }
-    */
+           }
 }
-
 
 ?>
 
@@ -124,7 +116,7 @@
 	
 	document.getElementsByClassName('navbar-brand')[0]
         .addEventListener('click', function (event) {
-			location.replace("http://localhost/stock-manager/php/welcome.php");
+			location.replace("https://sahq.000webhostapp.com/php/welcome.php");
         });
   </script>
 

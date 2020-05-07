@@ -1,4 +1,11 @@
 <?php 
+## AUTHOR = "Asad"
+# Reviewer= "Alain"
+# LICENCE MIT
+
+# This is the an internal componant which is part of
+# user alert notification
+
 include('search.php');
 include('config.php');
 
@@ -61,7 +68,17 @@ if (isset($_POST['targetSearchbox'])) {
 				$sqlAddSymbol = "INSERT INTO livestocks(symbol,stockPrice) VALUES ('$currentStockChoice','$currentStockPrice')";
 				//con and run 
 				if($con->query($sqlAddSymbol) == TRUE){
-					echo "added new stock to livestocks table";
+				    
+				    echo "
+				    <div class='popup'>
+				    <div class='d-flex justify-content-center'>
+				        <div class='alert alert-success'>
+                        <strong>Success!</strong> This alert box could indicate a successful or positive action.
+                    </div>
+				    </div>
+				    </div>" ;
+                    
+					
 				}
 			}
 		

@@ -1,6 +1,14 @@
 <?php
+## AUTHOR = "Asad"
+# Reviewer= "Alain"
+
+# LICENCE MIT
+
+# This is part of the cron componant
+
     include('apikey.php');
     include('config.php');
+    include('cronjob_checkOrders.php');
 
     /* cron job script this script will update all the rows of stockPrices in liveStocks using finhub api
      the max updates it can do is 60 rows because the free tier of the api plan allows it.  
@@ -29,6 +37,9 @@
                 }
             }
         }
+
+        // run check orders job 
+        start_cronjob_checkOrder();
 
     }
 

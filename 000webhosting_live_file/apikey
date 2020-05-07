@@ -1,8 +1,0 @@
-
-https://finnhub.io/dashboard
-60 free API calls/minute
-APIKEY: REDACTED
-
-finhub.io/api/v1/quote?symobl=<stock symobl>&token=<apikey>
-
-stockname/symobl at: https://api.npoint.io/a26ce23c86a7ca4d3c63
